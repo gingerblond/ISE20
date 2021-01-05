@@ -7,7 +7,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import NewCustomer from "./components/NewCustomer";
-import RoomDetails from "./components/RoomDetails"
+import DB from "./components/DB"
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -17,7 +17,7 @@ const routes = [
     { path: '/reservation', component: ReservationForm },
     { path: '/', component: HelloWorld},
     { path: '/customer', component: NewCustomer},
-    { path: "/room", component: RoomDetails}
+    { path: "/db", component: DB}
 ];
 
 const router = new VueRouter({

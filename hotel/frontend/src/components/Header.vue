@@ -5,18 +5,19 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item>
-            <router-link to="/">Home</router-link>
+          <b-nav-item v-on:click="$router.push('/')">
+            Home
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="/customer">New Customer</router-link>
+          <b-nav-item v-on:click="$router.push('customer')">
+            New Customer
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="reservation">RoomReservation</router-link>
+          <b-nav-item v-on:click="$router.push('reservation')">
+           RoomReservation
           </b-nav-item>
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
+          <b-nav-item> Fill-in DB</b-nav-item>
           <b-nav-item href="#">LogIn as ADMIN</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
