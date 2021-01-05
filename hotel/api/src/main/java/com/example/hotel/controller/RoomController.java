@@ -41,17 +41,15 @@ public class RoomController {
      * @return
      */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("getRooms")
-    public int getRooms() {
+    @GetMapping("getRooms/{type}")
+    public int getRooms(@PathVariable String type) {
         List<Room> rooms = service.getRooms();
         int occurancies = 0;
         for (Room room:rooms){
-            if(room.getType().equals("SINGLE_ROOM")){
+            if(room.getType().equals(type) && room.isAvailable()){
                 occurancies++;
             }
         }
-        /**List<Room> respondList = new ArrayList<Room>();
-        respondList.**/
-        return occurancies;
+          return occurancies;
     }
 }
