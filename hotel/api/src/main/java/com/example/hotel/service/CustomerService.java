@@ -5,6 +5,8 @@ import com.example.hotel.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -17,6 +19,26 @@ public class CustomerService {
      */
     public Customer addCustomer(Customer customer){
         return repository.save(customer);
+    }
+
+    public List<Customer> getCustomers() {
+        return repository.findAll();
+    }
+
+    public Customer getCustomerById(int id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public String deleteCustomer(int id) {
+        repository.deleteById(id);
+        return "customer removed !! " + id;
+    }
+
+    public Customer updateCustomer(Customer customer) {
+        Customer existingCustomer = repository.findById(customer.getCustomerId()).orElse(null);
+        existingCustomer.setFirstName(customer.getFirstName());
+        existingCustomer.setLastName(customer.getLastName());
+        return repository.save(existingCustomer);
     }
 
 }
