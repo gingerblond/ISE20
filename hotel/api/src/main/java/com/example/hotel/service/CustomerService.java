@@ -1,6 +1,7 @@
 package com.example.hotel.service;
 
 import com.example.hotel.entity.Customer;
+import com.example.hotel.entity.Room;
 import com.example.hotel.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,23 @@ public class CustomerService {
         existingCustomer.setFirstName(customer.getFirstName());
         existingCustomer.setLastName(customer.getLastName());
         return repository.save(existingCustomer);
+    }
+
+    public void addRoomToCustomer(Customer customer, Room room){
+
+        customer.getRooms().add(room);
+    }
+
+    public Customer getCustomerBySocID(String idCard){
+
+        List<Customer>allCustomers = getCustomers();
+
+        for(Customer c: allCustomers){
+            if(c.getIdCard().equals(idCard))
+                return c;
+        }
+
+        return null;
     }
 
 }
