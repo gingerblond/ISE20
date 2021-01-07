@@ -43,7 +43,7 @@ public class ReservationService {
      */
 
 
-    public String reserveRoom(String firstName, String lastName,String idCard, String roomType){
+    /**public String reserveRoom(String firstName, String lastName,String idCard, String roomType){
 
         Room toReserve = roomService.getRoomsByType(roomType).get(0);
         Customer customer = customerService.getCustomerBySocID(idCard);
@@ -58,5 +58,5 @@ public class ReservationService {
         customerService.addRoomToCustomer(customer,toReserve);
         return UUID.randomUUID().toString();//ogranici
 
-    }
+    }**/
 }
