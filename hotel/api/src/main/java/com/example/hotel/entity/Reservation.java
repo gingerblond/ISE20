@@ -5,14 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name= "reservation_tbl")
 public class Reservation {
@@ -22,4 +20,12 @@ public class Reservation {
     private int reservationID;
     private double price;
     private String date;
+
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name="customerId", referencedColumnName = "customerId")
+    private Customer customer=new Customer();
+
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name="roomID", referencedColumnName = "roomID")
+    private Room room = new Room();
 }

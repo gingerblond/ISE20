@@ -23,9 +23,10 @@ public class Customer {
     private String lastName;
     private String idCard;
 
-    @OneToMany(targetEntity = Reservation.class, cascade = CascadeType.ALL)
+   /** @OneToMany(targetEntity = Reservation.class, cascade = CascadeType.ALL)
     @JoinColumn(name="customerId", referencedColumnName = "customerId")
     private List<Reservation> reservations;
+    **/
 
 
     /**public Customer(String firstName, String lastName, String idCard){
