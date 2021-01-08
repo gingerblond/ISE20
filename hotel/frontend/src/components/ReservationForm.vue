@@ -1,21 +1,39 @@
 <template>
-  <form id="app" v-on:submit.prevent="submitForm">
+
+    <b-container>
+    <b-form id="app" v-on:submit.prevent="submitForm">
+
     <div class="form-group">
+      <label for="idCard">ID Card</label>
+      <input type="text" class="form-control" id="idCard" placeholder="Please put your ID Card Number" v-model="form.customer.idCard">
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" placeholder="Please put your First Name" v-model="form.customer.firstName">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Please put your Last Name" v-model="form.customer.lastName">
+    </div>
+
+    <div class="form-group" >
       <label for="price">Price</label>
-      <input type="text" class="form-control" id="price" placeholder="Please put price" v-model="form.price">
+      <input type="text" class="form-control" id="price" placeholder="Please put price" v-model="form.customer.reservations[0].price" >
     </div>
 
     <div class="form-group">
       <label for="date">Date</label>
-      <input type="text" class="form-control" id="date" placeholder="Please put date" v-model="form.date">
+      <input type="text" class="form-control" id="date" placeholder="Please put date" v-model="form.customer.reservations[0].date">
     </div>
 
     <div class="form-group">
       <button class="btn btn-primary">Submit</button>
     </div>
 
-  </form>
-
+  </b-form>
+    </b-container>
 </template>
 
 <script>
@@ -41,9 +59,17 @@ export default {
   data() {
     return {
       form: {
-        // errors:[],
-        price: null,
-        date: null,
+        customer: {
+          firstName: null,
+          lastName: null,
+          idCard: null,
+          reservations:[
+            {
+              price: null,
+              date: null,
+            }
+          ]
+        }
       }
     };
   }
