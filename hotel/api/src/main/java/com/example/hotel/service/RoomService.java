@@ -30,14 +30,21 @@ public class RoomService {
         List<Room>allRooms = getRooms();
         List<Room>toReturn = new ArrayList<>();
 
-        if(!type.equals("SINGLE_ROOM")|| !type.equals("DOUBLE_ROOM"))
-            throw new IllegalArgumentException("Illegal Room type");
+        /*if(!type.equals("SINGLE_ROOM")|| !type.equals("DOUBLE_ROOM"))
+            throw new IllegalArgumentException("Illegal Room type");*/
 
         for(Room r:allRooms) {
             if(r.getType().equals(type) && r.isAvailable())
                 toReturn.add(r);
         }
         return toReturn;
+    }
+
+    public Room updateRoom(Room room){
+        Room existingRoom = repository.findById(room.getRoomID()).orElse(null);
+        existingRoom.setAvailable(room.isAvailable());
+        existingRoom.setType(room.getType());
+        return repository.save(existingRoom);
     }
 
 

@@ -43,11 +43,22 @@ public class RoomController {
     }
 
     /**
-     * Get rooms List by Type
-     * @return available rooms per Type
+     * Get rooms by type
+     * @param type
+     * @return
      */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("getRooms/{type}")
+    public List<Room> getRoomsByType(@PathVariable String type){
+        return service.getRoomsByType(type);
+    }
+
+    /**
+     * Get rooms count by Type
+     * @return available rooms per Type
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("getRoomsCount/{type}")
     public int getRooms(@PathVariable String type) {
         List<Room> rooms = service.getRooms();
         int occurancies = 0;

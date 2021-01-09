@@ -4,6 +4,7 @@ import com.example.hotel.entity.Customer;
 import com.example.hotel.entity.Reservation;
 import com.example.hotel.entity.Room;
 import com.example.hotel.repository.ReservationRepository;
+import com.example.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class ReservationService {
     @Autowired
     private ReservationRepository repository;
     @Autowired
-    private RoomService roomService;
+    private RoomRepository roomRepository;
     @Autowired
     private CustomerService customerService;
 
@@ -25,6 +26,7 @@ public class ReservationService {
      * @return
      */
     public Reservation saveReservation(Reservation reservation){
+        setToUnavailable(reservation.getRoom());
         return repository.save(reservation);
     }
 
@@ -59,4 +61,11 @@ public class ReservationService {
         return UUID.randomUUID().toString();//ogranici
 
     }**/
+
+    public Room setToUnavailable(Room room){
+        Room existingRoom = roomRepository.findById(room.getRoomID()).orElse(null);
+        existingRoom.setAvailable(false);
+        existingRoom.setType(room.getType());
+        return roomRepository.save(existingRoom);
+    }
 }
