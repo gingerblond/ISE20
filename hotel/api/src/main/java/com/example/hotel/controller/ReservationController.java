@@ -24,6 +24,7 @@ public class ReservationController {
     public Reservation addReservation(@RequestBody Reservation reservation){
         return service.saveReservation(reservation);
     }
+
     /**public Customer addCustomer(@RequestBody ReservationRequest reservationRequest) {
         return customerRepository.save(reservationRequest.getCustomer());
     }**/

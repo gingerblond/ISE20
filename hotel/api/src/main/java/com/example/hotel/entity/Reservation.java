@@ -21,6 +21,7 @@ public class Reservation {
     private int reservationID;
     private double price;
     private String date;
+    private int duration;
 
     @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="customerId", referencedColumnName = "customerId")

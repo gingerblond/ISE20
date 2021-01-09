@@ -32,25 +32,45 @@
       <div class="mt-3" v-if="selected">Selected: {{ selected }}. Price per Night ${{form.price}} </div>
       <div class="mt-3" v-if="roomsList.length===0 && selected" style="color: crimson">NO {{ selected }}s available right now! Please choose another type of room! </div>
 
-
       <div class="form-group">
         <label for="date">Date</label>
         <input type="date" class="form-control" id="date" placeholder="Please put date" v-model="form.date" required>
       </div>
 
       <div class="form-group">
-        <button class="btn btn-info">Submit</button>
+        <label for="duration">Date</label>
+        <input type="number" class="form-control" id="duration" placeholder="Please choose how long will be your stay" v-model="form.duration" required>
+      </div>
+
+      <div >
+        <button class="btn btn-outline-info"  type="button" @click="calculatePrice" style="margin-top: 5px">Calculate</button>
+      </div>
+
+      <b-card v-if="showCalc" style="margin-top: 10px">
+        <b-row>
+          <b-col> <strong>You want to make following reservation:</strong></b-col>
+        </b-row>
+        <b-row>
+          <b-col><strong>Date: </strong> {{ form.date }}</b-col>
+          <b-col><strong>Room type: </strong> {{ form.room.type }}</b-col>
+        </b-row>
+        <b-row>
+          <b-col><strong>Price per night: </strong> {{ form.price }}</b-col>
+          <b-col><strong>Duration: </strong> {{ form.duration}}</b-col>
+        </b-row>
+        <b-row>
+          <b-col><strong>Total price: </strong> ${{ totalPrice }}</b-col>
+         </b-row>
+      </b-card>
+
+      <div class="form-group">
+        <button class="btn btn-info" style="margin-top: 10px">Submit</button>
       </div>
 
     </b-form>
-    <p v-if="errors.length">
-      <b>Please correct the following error(s):</b>
-    <ul>
-      <li v-for="error in errors" v-bind:key="error.value" >{{ error }} </li>
-    </ul>
-
-
-    <div>{{ roomsList }}</div>
+    <b-alert variant="success" show v-if="showSuccess"> You submitted successfully reservation with ID: <strong>{{reservationID}}</strong>
+      Please save this ID: <strong>{{reservationID}}</strong>, if you want to edit or delete your reservation!
+    </b-alert>
   </b-container>
 </template>
 
@@ -63,12 +83,22 @@ export default {
     msg: String
   },
   methods: {
+    calculatePrice() {
+      this.totalPrice = this.form.price * this.form.duration;
+      this.showCalc=true;
+    },
     submitForm() {
-      axios.post('http://localhost:8090/addReservation', this.form)
+      axios.post('http://localhost:8000/addReservation', this.form).then(
+          (res)=> {
+            this.response = res.data;
+            this.reservationID = this.response.reservationID;
+            this.showSuccess = true;
+          }
+      )
 
     },
     onChange() {
-      axios.get(`http://localhost:8090/getRooms/${this.selected}`).then(
+      axios.get(`http://localhost:8000/getRooms/${this.selected}`).then(
           (res) => {
             this.roomsList = res.data;
             if(this.roomsList.length>0) {
@@ -103,16 +133,13 @@ export default {
     }
   },
   beforeMount() {
-    axios.get(`http://localhost:8090/getRooms/${this.selected}`,{headers: {'Content-Type': 'application/json'}}).then(
-        (res) => {
-          this.roomsList = res.data;
-        })
   },
   data() {
     return {
       form: {
         price: null,
         date: null,
+        duration: null,
         customer: {
           firstName: null,
           lastName: null,
@@ -129,8 +156,11 @@ export default {
       selected: null,
       options: [{text: 'Choose room type', value: null}, {text: 'Single room', value: 'SINGLE_ROOM'}, {text: 'Double room', value: 'DOUBLE_ROOM'},
         {text: 'Apartment', value: 'APARTMENT'}, {text: 'Honeymoon Sweet', value: 'HONEYMOON_SWEET'}],
-      errors:[]
-
+      reservationID: null,
+      response: null,
+      totalPrice: null,
+      showCalc: false,
+      showSuccess: false,
     };
   }
 }
