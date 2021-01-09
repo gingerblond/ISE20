@@ -17,7 +17,7 @@ const routes = [
     { path: '/reservation', component: ReservationForm },
     { path: '/', component: HelloWorld},
     { path: '/customer', component: NewCustomer},
-    { path: "/db", component: DB}
+    { path: "/db", component: DB},
 ];
 
 const router = new VueRouter({

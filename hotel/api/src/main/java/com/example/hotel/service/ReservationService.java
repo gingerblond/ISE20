@@ -8,6 +8,7 @@ import com.example.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class ReservationService {
      * @return
      */
     public Reservation saveReservation(Reservation reservation){
-        setToUnavailable(reservation.getRoom());
+        changeAvailability(reservation.getRoom());
         return repository.save(reservation);
     }
 
@@ -36,10 +37,13 @@ public class ReservationService {
      * @return
      */
     public String deleteReservation(int id){
+        changeAvailability(getReservationById(id).getRoom());
         repository.deleteById(id);
         return "Reservation with id: " +id + " successfully deleted!";
     }
-
+    public Reservation getReservationById(int id) {
+        return repository.findById(id).orElse(null);
+    }
     /**
      * PUT/ Edit a reservation
      */
@@ -62,9 +66,9 @@ public class ReservationService {
 
     }**/
 
-    public Room setToUnavailable(Room room){
+    public Room changeAvailability(Room room){
         Room existingRoom = roomRepository.findById(room.getRoomID()).orElse(null);
-        existingRoom.setAvailable(false);
+        existingRoom.setAvailable(!room.isAvailable());
         existingRoom.setType(room.getType());
         return roomRepository.save(existingRoom);
     }

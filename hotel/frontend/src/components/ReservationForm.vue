@@ -4,23 +4,45 @@
     <h1> New Reservation</h1>
     <b-form id="app" v-on:submit.prevent="submitForm" >
       <div style="font-weight: bold"> Please fill in your personal data (*All fileds are required) :</div>
-      <div class="form-group">
+      <b-row>
+        <div >
+          <button class="btn btn-outline-info"  type="button" @click="newCustomer" style="margin-top: 5px">New Customer</button>
+        </div>
+        <div >
+          <button class="btn btn-outline-info"  type="button" @click="oldCustomer" style="margin-top: 5px; margin-left: 10px">Registered Customer</button>
+        </div>
+      </b-row>
+      <div class="form-group" v-if="newC">
         <label for="idCard">ID Card</label>
         <input type="text" class="form-control" id="idCard" placeholder="Please put your ID Card Number"
                v-model="form.customer.idCard" required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" v-if="newC">
         <label for="firstName">First Name</label>
         <input type="text" class="form-control" id="firstName" placeholder="Please put your First Name"
                v-model="form.customer.firstName" required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" v-if="newC">
         <label for="lastName">Last Name</label>
         <input type="text" class="form-control" id="lastName" placeholder="Please put your Last Name"
-               v-model="form.customer.lastName" required>
+                required>
       </div>
+
+      <div class="form-group" v-if="oldC">
+        <label for="cusId">Customer Id</label>
+        <input type="text" id="cusId" class="form-control" placeholder="Please put your Customer ID"
+               v-model="form.customer.customerId" required>
+      </div>
+
+      <div v-if="oldC" >
+        <button class="btn btn-outline-info"  type="button" @click="getCustomer" style="margin-top: 5px">Verify Customer</button>
+      </div>
+      <b-alert variant="success" show v-if="successCustomer" style="margin-top: 10px"> Customer with ID: <strong>{{form.customer.customerId}}</strong>
+        was successfully found!
+      </b-alert>
+
       <div style="font-weight: bold"> Please choose your room preferences and date :</div>
 
       <div class="form-group">
@@ -43,7 +65,7 @@
       </div>
 
       <div >
-        <button class="btn btn-outline-info"  type="button" @click="calculatePrice" style="margin-top: 5px">Calculate</button>
+        <button class="btn btn-outline-info"  type="button" @click="calculatePrice" style="margin-top: 5px">Calculate Total Price</button>
       </div>
 
       <b-card v-if="showCalc" style="margin-top: 10px">
@@ -69,7 +91,9 @@
 
     </b-form>
     <b-alert variant="success" show v-if="showSuccess"> You submitted successfully reservation with ID: <strong>{{reservationID}}</strong>
-      Please save this ID: <strong>{{reservationID}}</strong>, if you want to edit or delete your reservation!
+      Please save this Reservation ID: <strong>{{reservationID}}</strong>, if you want to edit or delete your reservation!
+      Please save this Customer ID: <stron>{{this.form.customer.customerId}}</stron>, if you want to see your reservations!
+
     </b-alert>
   </b-container>
 </template>
@@ -83,6 +107,25 @@ export default {
     msg: String
   },
   methods: {
+    oldCustomer() {
+      this.oldC=true;
+      this.newC = false;
+    },
+    newCustomer() {
+      this.oldC=false;
+      this.newC = true;
+    },
+    getCustomer() {
+      axios.get( `http://localhost:8000/customerById/${this.form.customer.customerId}`).then(
+          (res)=>{
+            this.successCustomer=true;
+            this.cusRes=res.data;
+            this.form.customer.firstName=res.data.firstName;
+            this.form.customer.lastName=res.data.lastName;
+            this.form.customer.idCard=res.data.idCard;
+          }
+      )
+    },
     calculatePrice() {
       this.totalPrice = this.form.price * this.form.duration;
       this.showCalc=true;
@@ -141,6 +184,7 @@ export default {
         date: null,
         duration: null,
         customer: {
+          customerId: null,
           firstName: null,
           lastName: null,
           idCard: null
@@ -161,6 +205,10 @@ export default {
       totalPrice: null,
       showCalc: false,
       showSuccess: false,
+      oldC: false,
+      newC: false,
+      cusRes: null,
+      successCustomer: false
     };
   }
 }

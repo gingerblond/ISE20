@@ -25,9 +25,12 @@ public class ReservationController {
         return service.saveReservation(reservation);
     }
 
-    /**public Customer addCustomer(@RequestBody ReservationRequest reservationRequest) {
-        return customerRepository.save(reservationRequest.getCustomer());
-    }**/
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping ("deleteReservation/{id}")
+    public String deleteReservation(@PathVariable int id) {
+         return service.deleteReservation(id);
+    }
+
 
     /**
      * PUT/Edit Reservation
