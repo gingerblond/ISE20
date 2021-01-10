@@ -1,12 +1,12 @@
 <template>
 
-  <b-container fluid="sm">
+  <b-container fluid="sm" style="width:600px">
     <h1> New Reservation</h1>
     <b-form id="app" v-on:submit.prevent="submitForm" >
       <div style="font-weight: bold"> Please fill in your personal data (*All fileds are required) :</div>
       <b-row>
-        <div >
-          <button class="btn btn-outline-info"  type="button" @click="newCustomer" style="margin-top: 5px">New Customer</button>
+        <div style="margin-left: 15px">
+          <button class="btn btn-outline-info"   type="button" @click="newCustomer" style="margin-top: 5px">New Customer</button>
         </div>
         <div >
           <button class="btn btn-outline-info"  type="button" @click="oldCustomer" style="margin-top: 5px; margin-left: 10px">Registered Customer</button>

@@ -1,4 +1,5 @@
 <template>
+  <b-container fluid="sm" style="width:400px">
 
     <b-form v-on:submit.prevent="submitForm">
     <div class="form-group">
@@ -53,6 +54,7 @@
       <b-alert variant="success" show v-if="success"> You updated successfully reservation with ID: <strong>{{parentData.reservationID}}</strong>
       </b-alert>
   </b-form>
+  </b-container>
 </template>
 
 <script>
