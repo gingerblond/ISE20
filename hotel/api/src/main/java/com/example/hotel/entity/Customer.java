@@ -23,6 +23,9 @@ public class Customer {
     private String lastName;
     private String idCard;
 
+/**
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy="customer")
+    private List<Reservation> reservations;
    /** @OneToMany(targetEntity = Reservation.class, cascade = CascadeType.ALL)
     @JoinColumn(name="customerId", referencedColumnName = "customerId")
     private List<Reservation> reservations;

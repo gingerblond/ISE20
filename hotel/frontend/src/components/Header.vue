@@ -8,11 +8,11 @@
           <b-nav-item v-on:click="$router.push('/')">
             Home
           </b-nav-item>
-          <b-nav-item v-on:click="$router.push('customer')">
-            New Customer
-          </b-nav-item>
           <b-nav-item v-on:click="$router.push('reservation')">
-           RoomReservation
+            New Reservation
+          </b-nav-item>
+          <b-nav-item v-on:click="$router.push('manageReservations')">
+            Manage Reservations
           </b-nav-item>
         </b-navbar-nav>
         <!-- Right aligned nav items -->

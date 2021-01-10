@@ -36,6 +36,10 @@ public class RoomController {
         return service.addRooms(rooms);
     }
 
+    /**
+     * Get list with all rooms
+     * @return
+     */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("getRooms")
     public List<Room> getRooms(){

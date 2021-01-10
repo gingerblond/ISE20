@@ -23,11 +23,11 @@ public class Reservation {
     private String date;
     private int duration;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
     @JoinColumn(name="customerId", referencedColumnName = "customerId")
     private Customer customer;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.REFRESH)
     @JoinColumn(name="roomID", referencedColumnName = "roomID")
     private Room room;
 }

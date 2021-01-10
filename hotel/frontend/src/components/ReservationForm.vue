@@ -26,8 +26,11 @@
 
       <div class="form-group" v-if="newC">
         <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Please put your Last Name"
+        <input type="text" class="form-control" id="lastName" placeholder="Please put your Last Name" v-model="form.customer.lastName"
                 required>
+      </div>
+      <div v-if="newC" >
+        <button class="btn btn-outline-info"  type="button" @click="addCustomer" style="margin-top: 5px">Add Customer</button>
       </div>
 
       <div class="form-group" v-if="oldC">
@@ -39,8 +42,8 @@
       <div v-if="oldC" >
         <button class="btn btn-outline-info"  type="button" @click="getCustomer" style="margin-top: 5px">Verify Customer</button>
       </div>
-      <b-alert variant="success" show v-if="successCustomer" style="margin-top: 10px"> Customer with ID: <strong>{{form.customer.customerId}}</strong>
-        was successfully found!
+      <b-alert variant="success" show v-if="successCustomer && oldC" style="margin-top: 10px"> Customer with ID: <strong>{{form.customer.customerId}}</strong>
+        was successfully found! Hello, {{form.customer.firstName}} {{form.customer.lastName}}
       </b-alert>
 
       <div style="font-weight: bold"> Please choose your room preferences and date :</div>
@@ -51,7 +54,7 @@
                        :options="options">
         </b-form-select>
       </div>
-      <div class="mt-3" v-if="selected">Selected: {{ selected }}. Price per Night ${{form.price}} </div>
+      <div class="mt-3" v-if="selected">Selected: {{ selected }}. Price per Night ${{singlePrice}} </div>
       <div class="mt-3" v-if="roomsList.length===0 && selected" style="color: crimson">NO {{ selected }}s available right now! Please choose another type of room! </div>
 
       <div class="form-group">
@@ -60,7 +63,7 @@
       </div>
 
       <div class="form-group">
-        <label for="duration">Date</label>
+        <label for="duration">Duration</label>
         <input type="number" class="form-control" id="duration" placeholder="Please choose how long will be your stay" v-model="form.duration" required>
       </div>
 
@@ -77,11 +80,11 @@
           <b-col><strong>Room type: </strong> {{ form.room.type }}</b-col>
         </b-row>
         <b-row>
-          <b-col><strong>Price per night: </strong> {{ form.price }}</b-col>
-          <b-col><strong>Duration: </strong> {{ form.duration}}</b-col>
+          <b-col><strong>Price per night: </strong> ${{ singlePrice }}</b-col>
+          <b-col><strong>Duration: </strong> {{ form.duration}} nights</b-col>
         </b-row>
         <b-row>
-          <b-col><strong>Total price: </strong> ${{ totalPrice }}</b-col>
+          <b-col><strong>Total price: </strong> ${{ form.price }}</b-col>
          </b-row>
       </b-card>
 
@@ -92,7 +95,7 @@
     </b-form>
     <b-alert variant="success" show v-if="showSuccess"> You submitted successfully reservation with ID: <strong>{{reservationID}}</strong>
       Please save this Reservation ID: <strong>{{reservationID}}</strong>, if you want to edit or delete your reservation!
-      Please save this Customer ID: <stron>{{this.form.customer.customerId}}</stron>, if you want to see your reservations!
+      Please save this Customer ID: <strong>{{this.form.customer.customerId}}</strong>, if you want to see your reservations!
 
     </b-alert>
   </b-container>
@@ -108,12 +111,31 @@ export default {
   },
   methods: {
     oldCustomer() {
+      this.clearData();
       this.oldC=true;
       this.newC = false;
     },
     newCustomer() {
+      this.clearData();
       this.oldC=false;
       this.newC = true;
+    },
+    clearData(){
+      this.form.customer.customerId = '';
+      this.form.customer.firstName='';
+      this.form.customer.lastName='';
+      this.form.customer.idCard='';
+    },
+    addCustomer() {
+      axios.post(`http://localhost:8000/addCustomer`,this.form.customer).then(
+          (res) =>
+          {
+            this.form.customer.customerId = res.data.customerId;
+            this.form.customer.firstName=res.data.firstName;
+            this.form.customer.lastName=res.data.lastName;
+            this.form.customer.idCard=res.data.idCard;
+          }
+      )
     },
     getCustomer() {
       axios.get( `http://localhost:8000/customerById/${this.form.customer.customerId}`).then(
@@ -127,10 +149,12 @@ export default {
       )
     },
     calculatePrice() {
-      this.totalPrice = this.form.price * this.form.duration;
+      this.form.price = this.singlePrice* this.form.duration;
+      //this.totalPrice = this.form.price * this.form.duration;
       this.showCalc=true;
     },
     submitForm() {
+      this.form.price = this.singlePrice* this.form.duration;
       axios.post('http://localhost:8000/addReservation', this.form).then(
           (res)=> {
             this.response = res.data;
@@ -154,19 +178,19 @@ export default {
             }
             switch(this.selected){
               case "SINGLE_ROOM": {
-                this.form.price = 70;
+                this.singlePrice = 70;
                 break;
               }
               case "DOUBLE_ROOM": {
-                this.form.price = 90;
+                this.singlePrice = 90;
                 break;
               }
               case "APARTMENT": {
-                this.form.price = 130;
+                this.singlePrice = 130;
                 break;
               }
               case "HONEYMOON_SWEET": {
-                this.form.price = 110;
+                this.singlePrice = 110;
                 break;
               }
               default:
@@ -208,7 +232,8 @@ export default {
       oldC: false,
       newC: false,
       cusRes: null,
-      successCustomer: false
+      successCustomer: false,
+      singlePrice: null
     };
   }
 }
@@ -217,7 +242,7 @@ export default {
 <style scoped>
 h1 {
   font-weight: bold;
-  font-size: x-large;
+  font-size: xx-large;
   color: #2c3e50;
 }
 </style>
