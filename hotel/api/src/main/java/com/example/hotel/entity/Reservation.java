@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -20,12 +21,13 @@ public class Reservation {
     private int reservationID;
     private double price;
     private String date;
+    private int duration;
 
-    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne( fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
     @JoinColumn(name="customerId", referencedColumnName = "customerId")
-    private Customer customer=new Customer();
+    private Customer customer;
 
-    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.REFRESH)
     @JoinColumn(name="roomID", referencedColumnName = "roomID")
-    private Room room = new Room();
+    private Room room;
 }

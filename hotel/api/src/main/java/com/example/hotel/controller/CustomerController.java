@@ -29,6 +29,7 @@ public class CustomerController {
     /**
      * List all customers
      */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/customers")
     public List<Customer> findAllCustomers() {
         return service.getCustomers();
@@ -37,7 +38,8 @@ public class CustomerController {
     /**
      * Search for customer by id
      */
-    @GetMapping("/CustomerById/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/customerById/{id}")
     public Customer findCustomerById(@PathVariable int id) {
         return service.getCustomerById(id);
     }
@@ -45,6 +47,7 @@ public class CustomerController {
     /**
     * Update customer details
      */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/updateCustomer")
     public Customer updateCustomer(@RequestBody Customer customer) {
         return service.updateCustomer(customer);

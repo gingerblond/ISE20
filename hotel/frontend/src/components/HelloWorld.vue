@@ -65,7 +65,7 @@ export default {
   methods: {
     getAvailableRooms(type) {
       this.type = type;
-      axios.get(`http://localhost:8000/getRooms/${this.type}`)
+      axios.get(`http://localhost:8000/getRoomsCount/${this.type}`)
           .then((res) => {
             this.count = res.data;
           })
