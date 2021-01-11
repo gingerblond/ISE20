@@ -26,6 +26,17 @@ public class RoomService {
         return  repository.findAll();
     }
 
+    public List<Room> getAvailableRooms(){
+        List<Room>allRooms = getRooms();
+        List<Room>toReturn = new ArrayList<>();
+
+        for(Room r:allRooms) {
+            if(r.isAvailable())
+                toReturn.add(r);
+        }
+        return toReturn;
+    }
+
     public List<Room> getRoomsByType (String type) {
         List<Room>allRooms = getRooms();
         List<Room>toReturn = new ArrayList<>();
@@ -47,6 +58,10 @@ public class RoomService {
         return repository.save(existingRoom);
     }
 
+    public String deleteRoom(int id) {
+        repository.deleteById(id);
+        return "Room with ID :" + id + " successfully removed!";
+    }
 
 
 }

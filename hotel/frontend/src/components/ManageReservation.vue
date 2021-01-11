@@ -35,7 +35,7 @@
       </tr>
     </table>
     <div>{{deleteRes}}</div>
-    <div v-if="reservations.length==0"> No reservations for customer with ID: {{ form.customerID }}</div>
+    <div v-if="reservations.length==0" style="color: crimson"> No reservations for customer with ID: {{ form.customerID }}</div>
     <div  style="font-weight: bold;font-size: large;margin-top: 10px" v-if="showForm"> Edit reservation with ID: {{resId}}</div>
     <edit-reservation :parent-data="$data.editRes" v-if="showForm"></edit-reservation>
   </b-container>

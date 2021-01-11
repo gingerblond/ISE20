@@ -37,13 +37,19 @@ public class RoomController {
     }
 
     /**
-     * Get list with all rooms
+     * Get list of all rooms
      * @return
      */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("getRooms")
     public List<Room> getRooms(){
         return service.getRooms();
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("getAvailableRooms")
+    public List<Room> getAvailableRooms(){
+        return service.getAvailableRooms();
     }
 
     /**
@@ -72,5 +78,26 @@ public class RoomController {
             }
         }
           return occurancies;
+    }
+
+    /**
+     * Update room
+     * @param room
+     * @return
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("updateRoom")
+    public Room updateRoom(@RequestBody Room room){
+        return  service.updateRoom(room);
+    }
+    /**
+     * Delete Room by room ID
+     * @param id
+     * @return
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("deleteRoom/{id}")
+    public String deleteRoom(@PathVariable int id) {
+        return service.deleteRoom(id);
     }
 }

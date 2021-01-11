@@ -18,6 +18,19 @@
     </div>
 
   </b-form>
+
+  <b-card class="bv-example-row" style="margin-top: 300px">
+    <b-card-title>Administration Options:</b-card-title>
+    <b-card-body>
+    <b-row>
+      <b-col v-on:click="$router.push('roomAdmin')"><b-button class="btn-info">Room Administration</b-button></b-col>
+      <b-col v-on:click="$router.push('db')"><b-button class="btn-info">Customer Administration</b-button></b-col>
+      <div class="w-auto" style="margin-top: 10px"></div>
+      <b-col style="margin-top: 10px" v-on:click="$router.push('db')"><b-button class="btn-info">Employee Administration</b-button></b-col>
+      <b-col style="margin-top: 10px" v-on:click="$router.push('db')"><b-button class="btn-info">Reports Administration</b-button></b-col>
+    </b-row>
+    </b-card-body>
+  </b-card>
 </b-container>
 </template>
 

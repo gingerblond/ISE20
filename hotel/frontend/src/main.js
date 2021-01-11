@@ -10,6 +10,7 @@ import NewCustomer from "./components/NewCustomer";
 import DB from "./components/DB"
 import ManageReservation from "./components/ManageReservation"
 import Login from "./components/Login"
+import RoomAdmin from "./components/RoomAdmin"
 
 
 Vue.config.productionTip = false
@@ -22,7 +23,8 @@ const routes = [
     { path: '/customer', component: NewCustomer},
     { path: "/db", component: DB},
     { path: '/manageReservations', component: ManageReservation},
-    { path: '/login', component: Login}
+    { path: '/login', component: Login},
+    { path: '/roomAdmin', component: RoomAdmin}
 
 ];
 
