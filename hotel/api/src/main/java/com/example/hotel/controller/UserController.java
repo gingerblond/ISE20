@@ -12,6 +12,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserRepository userRepository;
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/users/register")
     public Status registerUser(@Valid @RequestBody User newUser) {
         List<User> users = userRepository.findAll();
@@ -26,6 +28,8 @@ public class UserController {
         userRepository.save(newUser);
         return Status.SUCCESS;
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/users/login")
     public Status loginUser(@Valid @RequestBody User user) {
         List<User> users = userRepository.findAll();
@@ -38,6 +42,8 @@ public class UserController {
         }
         return Status.FAILURE;
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/users/logout")
     public Status logUserOut(@Valid @RequestBody User user) {
         List<User> users = userRepository.findAll();
@@ -50,9 +56,19 @@ public class UserController {
         }
         return Status.FAILURE;
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/getUsers")
+    public List<User> getUsers(){
+        return userRepository.findAll();
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/users/all")
     public Status deleteUsers() {
         userRepository.deleteAll();
         return Status.SUCCESS;
     }
+
+
 }

@@ -1,8 +1,10 @@
 <template>
-  <b-container fluid="sm">
+  <b-container fluid="sm" style="width:1000px">
+
     <h1> Room Administration</h1>
+
     <div class="row no-gutter">
-      <div class="col-md-8 col-lg-6 bg-image">
+      <div class="col-md-8 col-lg-6 ">
         <b-button class="btn btn-info" style="width:300px; margin-top: 20px" v-on:click="getRooms"> Get available
           rooms
         </b-button>
@@ -27,9 +29,11 @@
         <div v-if="roomsList.length==0" style="color: crimson"> No available rooms right now! Please, try later !</div>
       </div>
       <div class="col-md-8 col-lg-6">
+        <button class="btn btn-outline-info" v-on:click="$router.push('login')"  type="button" style="width:300px; margin-top: 20px" > Go back to admin tools
+        </button>
         <b-alert variant="success" show v-if="showDelete" style="margin-top: 95px"><strong>{{ delRoomMsg }}</strong>
         </b-alert>
-        <div style="margin-top: 20px" v-if="showEdit">
+        <div style="margin-top: 40px;" v-if="showEdit">
           <h2> Please edit room with ID {{this.form.roomID}}:</h2>
           <b-form v-on:submit.prevent="submitForm">
             <div class="form-group" style="margin-top: 25px">
