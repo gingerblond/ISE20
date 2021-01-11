@@ -12,7 +12,7 @@ import javax.persistence.*;
     @NoArgsConstructor
     @Entity
     @Table(name= "employee_tbl")
-    public class Employee {
+    public class EmployeeCust {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,7 @@ import javax.persistence.*;
         private String firstName;
         private String lastName;
         private String socialId;
-        private int departmentId;
+        private String department;
 
-        public class CustomerService extends  Employee {
-            private String email;
-            private String phoneNumber;
-        }
 
-        public class CleaningService extends  Employee {
-            private int workHours;
-            private String responsibility;
-        }
 }
