@@ -1,9 +1,11 @@
 package com.example.hotel.controller;
 
-import com.example.hotel.dto.ReservationRequest;
-import com.example.hotel.entity.Customer;
+import com.example.hotel.dto.ReservationReport;
+
 import com.example.hotel.entity.Reservation;
 import com.example.hotel.repository.CustomerRepository;
+import com.example.hotel.repository.ReservationRepository;
+import com.example.hotel.repository.RoomRepository;
 import com.example.hotel.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,12 @@ public class ReservationController {
 
     @Autowired
     private ReservationService service;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
     /**
      * POST Save a new reservation
@@ -80,6 +88,11 @@ public class ReservationController {
     @PutMapping ("updateReservation")
     public Reservation updateReservation(@RequestBody Reservation reservation) {
         return service.updateReservation(reservation);
+    }
+
+    @GetMapping("/getReservationReport")
+    public List<ReservationReport> getJoinInformation(){
+        return reservationRepository.getReportReservation();
     }
 
 
