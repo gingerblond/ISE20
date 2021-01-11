@@ -1,6 +1,6 @@
 package com.example.hotel.service;
 
-import com.example.hotel.entity.EmployeeCust;
+import com.example.hotel.entity.Employee;
 import com.example.hotel.entity.Hotel;
 import com.example.hotel.entity.Room;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,8 @@ public class DBFeedingService {
     private RoomService roomService;
     @Autowired
     private HotelService hotelService;
+    @Autowired
+    private EmployeeService employeeService;
 
     private List<Room> roomsDB = new ArrayList<>();
 
@@ -25,14 +27,20 @@ public class DBFeedingService {
     Room room5 = new Room(5,true, "HONEYMOON_SWEET");
     Room room6 = new Room(6,true, "DOUBLE_ROOM");
 
-    
-    Hotel hotel = new Hotel(1,"Wien,Opernring 1",roomsDB );
+    private List<Employee> employeeDB = new ArrayList<>();
+
+    Employee employee1 = new Employee(1, "Sladjana", "Bujadnjak", "12B34", "CUSTOMER_SERVICE", "hi5qgmail.com", "", "full_time", "");
+    Employee employee2 = new Employee(2, "ELI", "ELI", "12B34", "CUSTOMER_SERVICE", "hi5qgmail.com", "", "full_time", "");
+    Employee employee3 = new Employee(3, "Nesha", "Pesha", "12B34", "CLEAN_SERVICE", "", "011/222", "part_time", "bathrooms");
+
+    Hotel hotel = new Hotel(1,"Wien,Opernring 1",roomsDB, employeeDB);
 
 
 
     public void startFeedingDB(){
         addRooms();
         addHotelToDB(hotel);
+        addEmployeeToDB();
     }
 
     public void addRooms() {
@@ -46,5 +54,11 @@ public class DBFeedingService {
 
     public void addHotelToDB(Hotel hotel){
         hotelService.addHotel(hotel);
+    }
+
+    public void addEmployeeToDB () {
+        employeeDB.add(employee1);
+        employeeDB.add(employee2);
+        employeeDB.add(employee3);
     }
 }

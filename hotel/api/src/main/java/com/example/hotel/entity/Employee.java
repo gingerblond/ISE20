@@ -12,7 +12,7 @@ import javax.persistence.*;
     @NoArgsConstructor
     @Entity
     @Table(name= "employee_tbl")
-    public class EmployeeCust {
+    public class Employee {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,10 @@ import javax.persistence.*;
         private String lastName;
         private String socialId;
         private String department;
+        private String email;
+        private String phoneNumber;
+        private String workHours;
+        private String responsibility;
 
 
 }
