@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <b-container fluid="lg" style="width:700px">
     <b-card
         title="Hotel 5 Room Reservation"
-        style="max-width: 40rem;margin-top:20px;margin-left: 600px;"
+        style="max-width: 80rem;margin-top:20px;"
         class="mb-2"
     >
       <b-card-text>
@@ -49,7 +49,7 @@
       </b-container>
     </b-card>
     <b-button v-on:click="$router.push('reservation')">  Make reservation</b-button>
-  </div>
+  </b-container>
 </template>
 
 <script>

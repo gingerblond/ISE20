@@ -3,6 +3,8 @@ package com.example.hotel.service;
 import com.example.hotel.entity.Employee;
 import com.example.hotel.entity.Hotel;
 import com.example.hotel.entity.Room;
+import com.example.hotel.entity.User;
+import com.example.hotel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class DBFeedingService {
     private HotelService hotelService;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private UserRepository userRepository;
 
     private List<Room> roomsDB = new ArrayList<>();
 
@@ -35,12 +39,16 @@ public class DBFeedingService {
 
     Hotel hotel = new Hotel(1,"Wien,Opernring 1",roomsDB, employeeDB);
 
-
+    /**
+     * Login admin user
+     */
+    User user = new User("admin", "pass");
 
     public void startFeedingDB(){
         addRooms();
         addHotelToDB(hotel);
         addEmployeeToDB();
+        addUser(user);
     }
 
     public void addRooms() {
@@ -60,5 +68,9 @@ public class DBFeedingService {
         employeeDB.add(employee1);
         employeeDB.add(employee2);
         employeeDB.add(employee3);
+    }
+
+    public void addUser(User user){
+        userRepository.save(user);
     }
 }

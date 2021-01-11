@@ -56,8 +56,16 @@ public class CustomerController {
     /**
      * Delete customer by id
      */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deleteCustomer/{id}")
     public String deleteCustomer(@PathVariable int id) {
         return service.deleteCustomer(id);
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("getcustomersBySearch/{search}")
+    public List<Customer> findByIdNameIdCard(@PathVariable String search){
+        return service.findByIdNameIdCard(search);
+    }
+
 }
