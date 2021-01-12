@@ -32,6 +32,8 @@
       <div v-if="newC" >
         <button class="btn btn-outline-info"  type="button" @click="addCustomer" style="margin-top: 5px">Add Customer</button>
       </div>
+      <b-alert variant="success" show v-if="successNewCustomer && newC" style="margin-top: 10px"> Customer with ID: <strong>{{form.customer.customerId}}</strong>
+        was successfully added! Hello, {{form.customer.firstName}} {{form.customer.lastName}}</b-alert>
 
       <div class="form-group" v-if="oldC">
         <label for="cusId">Customer Id</label>
@@ -130,6 +132,8 @@ export default {
       axios.post(`http://localhost:8000/addCustomer`,this.form.customer).then(
           (res) =>
           {
+            this.successNewCustomer = true;
+            this.successCustomer=false;
             this.form.customer.customerId = res.data.customerId;
             this.form.customer.firstName=res.data.firstName;
             this.form.customer.lastName=res.data.lastName;
@@ -141,6 +145,7 @@ export default {
       axios.get( `http://localhost:8000/customerById/${this.form.customer.customerId}`).then(
           (res)=>{
             this.successCustomer=true;
+            this.successNewCustomer = false;
             this.cusRes=res.data;
             this.form.customer.firstName=res.data.firstName;
             this.form.customer.lastName=res.data.lastName;
@@ -233,6 +238,7 @@ export default {
       newC: false,
       cusRes: null,
       successCustomer: false,
+      successNewCustomer:false,
       singlePrice: null
     };
   }
