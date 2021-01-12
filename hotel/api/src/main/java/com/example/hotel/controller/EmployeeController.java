@@ -1,6 +1,7 @@
 package com.example.hotel.controller;
 
 
+import com.example.hotel.entity.CleaningServiceEmployee;
 import com.example.hotel.entity.CustomerServiceEmployee;
 import com.example.hotel.entity.Employee;
 import com.example.hotel.service.CleaningServiceEmployeeService;
@@ -20,6 +21,10 @@ public class EmployeeController {
     @Autowired
     private CustomerServiceEmployeeService customerServiceEmployeeService;
 
+    /*******************************************************************************
+     *************** APIS for Customer Service Employees below:*********************
+     ******************************************************************************/
+
     /**
      * Add Customer Service Employee
      * @param employee
@@ -31,17 +36,53 @@ public class EmployeeController {
         return customerServiceEmployeeService.addCustomerServiceEmployee(employee);
     }
 
+    /**
+     * Get customer Service Employees
+     * @return
+     */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("getCustomerEmployees")
-    public List<CustomerServiceEmployee> findAllCustomers() {
+    public List<CustomerServiceEmployee> findAllCustomerServiceEmployees() {
         return customerServiceEmployeeService.getCustomerServiceEmployees();
     }
 
+    /**
+     * Get customer servise employee by ID
+     * @param id
+     * @return
+     */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("getCustomerEmployees/{id}")
     public Employee findgetCustomerEmployeesById(@PathVariable int id) {
         return customerServiceEmployeeService.getCustomerServiceEmployeeById(id);
     }
+
+    /*******************************************************************************
+     *************** APIS for Cleaning Service Employees below:*********************
+     *******************************************************************************/
+
+    /**
+     * Add Cleaning Service Employee
+     * @param employee
+     * @return
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("addCleaningEmployee")
+    public CleaningServiceEmployee addCustomerEmployee(@RequestBody CleaningServiceEmployee employee){
+        return cleaningEmployeeService.addCleaningServiceEmployee(employee);
+    }
+
+    /**
+     * Get cleaning Service Employees
+     * @return
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("getCleaningEmployees")
+    public List<CleaningServiceEmployee> findAllCleaningServiceEmployees() {
+        return cleaningEmployeeService.getCleaningServiceEmployees();
+    }
+
+
 
     /**
     @PutMapping("updateEmployee")

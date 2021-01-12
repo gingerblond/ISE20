@@ -39,7 +39,7 @@
             <div class="form-group" style="margin-top: 25px">
               <label for="roomType">Room Type</label>
               <b-form-select id="roomType" v-model="selected" v-on:change="onChange()"
-                             :options="options">
+                             :options="options" required>
               </b-form-select>
             </div>
             <div class="form-group">
@@ -86,7 +86,6 @@ export default {
     },
     onChange() {
       this.form.type = this.selected;
-      console.log(this.form.type);
     },
     editRoom(id){
       this.form.roomID = id;

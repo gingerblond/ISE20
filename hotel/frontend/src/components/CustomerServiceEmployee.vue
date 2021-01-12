@@ -38,7 +38,8 @@
     <div class="form-group">
       <button class="btn btn-info" style="margin-top: 10px">Add employee</button>
     </div>
-    <b-alert variant="success" show v-if="showSuccess"> You added successfully new employee with ID: <strong>{{employeeId}}</strong>
+    <b-alert variant="success" show v-if="showSuccess"> You added successfully new employee with ID: <strong>{{employeeId}}</strong>. Username is:<strong>{{form.user.username}}</strong>.
+      Password is:<strong>{{form.user.password}}</strong>
     </b-alert>
 
   </b-form>
