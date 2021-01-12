@@ -16,6 +16,6 @@ public class DBFeedingController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("dbFeeding")
     public void dbFeeding(){
-         service.startFeedingDB();
+       //  service.startFeedingDB();
     }
 }

@@ -25,8 +25,8 @@ public class Hotel {
     private List<Room> rooms;
 
 
-    @OneToMany(targetEntity = Employee.class, cascade = CascadeType.ALL)
+  /**   @OneToMany(targetEntity = Employee.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "hotel_id", referencedColumnName = "hotelId")
-    private List<Employee> employees;
+    private List<Employee> employees;**/
 
 }

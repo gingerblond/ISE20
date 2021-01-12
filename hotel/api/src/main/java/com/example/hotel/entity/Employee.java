@@ -10,8 +10,8 @@ import javax.persistence.*;
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    @Entity
-    @Table(name= "employee_tbl")
+    @MappedSuperclass
+    @Table
     public class Employee {
 
         @Id
@@ -20,11 +20,10 @@ import javax.persistence.*;
         private String firstName;
         private String lastName;
         private String socialId;
-        private String department;
-        private String email;
-        private String phoneNumber;
-        private String workHours;
-        private String responsibility;
+
+        @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
+        @JoinColumn(name="hotelId", referencedColumnName = "hotelId")
+        private Hotel hotel;
 
 
 }

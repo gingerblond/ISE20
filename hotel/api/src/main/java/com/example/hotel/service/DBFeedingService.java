@@ -24,7 +24,7 @@ public class DBFeedingService {
 
     private List<Room> roomsDB = new ArrayList<>();
 
-    Room room1 = new Room(1,true, "SINGLE_ROOM");
+   /** Room room1 = new Room(1,true, "SINGLE_ROOM");
     Room room2 = new Room(2,true, "DOUBLE_ROOM");
     Room room3 = new Room(3,true, "APARTMENT");
     Room room4 = new Room(4,true, "SINGLE_ROOM");
@@ -33,21 +33,17 @@ public class DBFeedingService {
 
     private List<Employee> employeeDB = new ArrayList<>();
 
-    Employee employee1 = new Employee(1, "Sladjana", "Bujadnjak", "12B34", "CUSTOMER_SERVICE", "hi5qgmail.com", "", "full_time", "");
-    Employee employee2 = new Employee(2, "ELI", "ELI", "12B34", "CUSTOMER_SERVICE", "hi5qgmail.com", "", "full_time", "");
-    Employee employee3 = new Employee(3, "Nesha", "Pesha", "12B34", "CLEAN_SERVICE", "", "011/222", "part_time", "bathrooms");
 
-    Hotel hotel = new Hotel(1,"Wien,Opernring 1",roomsDB, employeeDB);
+    Hotel hotel = new Hotel(1,"Wien,Opernring 1",roomsDB);
 
     /**
      * Login admin user
      */
-    User user = new User("admin", "pass");
+  /**  User user = new User("admin", "pass");
 
     public void startFeedingDB(){
         addRooms();
         addHotelToDB(hotel);
-        addEmployeeToDB();
         addUser(user);
     }
 
@@ -64,13 +60,8 @@ public class DBFeedingService {
         hotelService.addHotel(hotel);
     }
 
-    public void addEmployeeToDB () {
-        employeeDB.add(employee1);
-        employeeDB.add(employee2);
-        employeeDB.add(employee3);
-    }
 
     public void addUser(User user){
         userRepository.save(user);
-    }
+    }**/
 }
