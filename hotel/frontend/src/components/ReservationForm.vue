@@ -155,7 +155,6 @@ export default {
     },
     calculatePrice() {
       this.form.price = this.singlePrice* this.form.duration;
-      //this.totalPrice = this.form.price * this.form.duration;
       this.showCalc=true;
     },
     submitForm() {

@@ -21,7 +21,7 @@ public class DBFeedingService {
     @Autowired
     private CustomerServiceEmployeeRepository customerServiceEmployeeRepository;
     @Autowired
-    private ReservationRepository reservationRepository;
+    private ReservationService reservationService;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -169,7 +169,7 @@ public class DBFeedingService {
      */
     private void addReservationsToDB(){
         for (Reservation reservation: reservationsDB ) {
-            reservationRepository.save(reservation);
+            reservationService.saveReservation(reservation);
         }
     }
 }
