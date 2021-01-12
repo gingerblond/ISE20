@@ -23,6 +23,7 @@ public class Customer {
     private String lastName;
     private String idCard;
 
+
 /**
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy="customer")
     private List<Reservation> reservations;

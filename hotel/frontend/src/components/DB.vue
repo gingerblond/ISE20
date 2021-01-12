@@ -9,7 +9,10 @@
         In order to perform all calls ,you can feed our DB here:
       </b-card-text>
       <b-button @click="dbFeed"> Feed Database</b-button>
-
+      <b-alert variant="warning" show v-if="showSuccess" style="margin-top: 150px"><strong>{{
+          this.payload
+        }}</strong>
+      </b-alert>
     </b-card>
   </div>
 </template>
@@ -21,13 +24,18 @@ export default {
   name: "RoomDetails",
   methods: {
     dbFeed() {
-      axios.post('http://localhost:8000/dbFeeding');
+      axios.post('http://localhost:8000/dbFeeding').then(
+          (res) => {
+            this.showSuccess = true
+            this.payload = res.data
+          }
+      );
     },
   },
-  data(){
-    return{
-      payload:null,
-
+  data() {
+    return {
+      payload: null,
+      showSuccess: false,
     }
   }
 }

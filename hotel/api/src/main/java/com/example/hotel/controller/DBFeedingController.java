@@ -15,7 +15,12 @@ public class DBFeedingController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("dbFeeding")
-    public void dbFeeding(){
-         service.startFeedingDB();
+    public String dbFeeding() throws Exception {
+        try {
+            service.startFeedingDB();
+            return "DB feed successful!";
+        } catch (Exception e) {
+            return "Feed DB failed";
+        }
     }
 }
