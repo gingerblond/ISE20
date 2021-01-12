@@ -38,4 +38,14 @@ public class CleaningServiceEmployeeService {
     public CleaningServiceEmployee getCleaningServiceEmployeeById(int id) {
         return repository.findById(id).orElse(null);
     }
+
+    /**
+     * Delete CleaningServiceEmployee
+     * @param id
+     * @return
+     */
+    public String deleteCleaningServiceEmployee(int id) {
+        repository.deleteById(id);
+        return "Cleaning Servise employee with ID :" + id + " successfully removed!";
+    }
 }

@@ -33,8 +33,7 @@
       <b-form-select id="responsibility" v-model="selected" v-on:change="onChange()"
                      :options="options" required>
       </b-form-select>
-      <!--input type="text" class="form-control" id="responsibility" placeholder="Please responsibility of employee"
-             v-model="form.responsibility" required-->
+
     </div>
 
     <div class="form-group">

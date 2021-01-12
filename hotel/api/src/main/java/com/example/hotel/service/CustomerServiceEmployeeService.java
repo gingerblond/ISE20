@@ -40,6 +40,16 @@ public class CustomerServiceEmployeeService {
         return repository.findById(id).orElse(null);
     }
 
+    /**
+     * Delete customer Service employee
+     * @param id
+     * @return
+     */
+    public String deleteCustomerServiceEmployee(int id) {
+         repository.deleteById(id);
+         return "Customer Servise employee with ID :" + id + " successfully removed!";
+    }
+
 
 
 }

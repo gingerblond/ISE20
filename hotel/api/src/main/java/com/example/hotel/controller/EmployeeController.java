@@ -57,6 +57,17 @@ public class EmployeeController {
         return customerServiceEmployeeService.getCustomerServiceEmployeeById(id);
     }
 
+    /**
+     * Delete customer servise employee by ID
+     * @param id
+     * @return
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("deleteCustomerEmployee/{id}")
+    public String deleteCustomerEmployee(@PathVariable int id) {
+        return customerServiceEmployeeService.deleteCustomerServiceEmployee(id);
+    }
+
     /*******************************************************************************
      *************** APIS for Cleaning Service Employees below:*********************
      *******************************************************************************/
@@ -82,6 +93,16 @@ public class EmployeeController {
         return cleaningEmployeeService.getCleaningServiceEmployees();
     }
 
+    /**
+     * Delete cleaning servise employee by ID
+     * @param id
+     * @return
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("deleteCleaningEmployee/{id}")
+    public String deleteCleaningEmployee(@PathVariable int id) {
+        return cleaningEmployeeService.deleteCleaningServiceEmployee(id);
+    }
 
 
     /**
