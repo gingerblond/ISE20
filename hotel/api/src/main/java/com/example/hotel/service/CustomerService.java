@@ -26,7 +26,7 @@ public class CustomerService {
     }
 
     /**
-     * LGet list with all customers
+     * Get list with all customers
      * @return
      */
     public List<Customer> getCustomers() {
