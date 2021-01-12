@@ -1,6 +1,7 @@
 package com.example.hotel.service;
 
 import com.example.hotel.entity.CleaningServiceEmployee;
+import com.example.hotel.entity.CustomerServiceEmployee;
 import com.example.hotel.repository.CleaningServiceEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,6 @@ public class CleaningServiceEmployeeService {
         repository.deleteById(id);
         return "Cleaning Servise employee with ID :" + id + " successfully removed!";
     }
+
+
 }

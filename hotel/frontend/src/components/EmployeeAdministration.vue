@@ -36,7 +36,7 @@
             <td> {{ employee.user.password}}</td>
             <td>
               <button class="btn-outline-info" v-on:click="deleteCustomerEmployee(employee.employeeId)">Delete</button>
-              <button class="btn-outline-info" v-on:click="editRoom(room.roomID)">Edit</button>
+              <button class="btn-outline-info" v-on:click="editCustomerEmployee(employee.employeeId)">Edit</button>
             </td>
           </tr>
         </table>
@@ -74,6 +74,9 @@
         <cleaning-service-employee v-if="newClean"></cleaning-service-employee>
         <b-alert variant="success" show v-if="showDeleteClien" style="margin-top: 120px"> <strong>{{deleteRespClien}}</strong>
         </b-alert>
+        <b-alert variant="success" show v-if="showDeleteCust" style="margin-top: 120px"> <strong>{{deleteRespCust}}</strong>
+        </b-alert>
+        <edit-customer-employee :parent-data="$data.editResCust" style="margin-left: 20px" v-if="showEditCust"></edit-customer-employee>
       </div>
 
 
@@ -86,9 +89,10 @@
 import axios from "axios";
 import CustomerServiceEmployee from "./CustomerServiceEmployee";
 import CleaningServiceEmployee from "./CleaningServiceEmployee";
+import EditCustomerEmployee from "./EditCustomerEmployee";
 export default {
   name: "EmployeeAdministration",
-  components: {CleaningServiceEmployee, CustomerServiceEmployee},
+  components: {EditCustomerEmployee, CleaningServiceEmployee, CustomerServiceEmployee},
   methods: {
     addCustomerServiceEmployee(){
       this.newCust = true;
@@ -149,6 +153,14 @@ export default {
             this.showDeleteClien = true;
           }
       )
+    },
+    editCustomerEmployee(id){
+      this.showEditCust = true;
+      axios.get(`http://localhost:8000/getCustomerEmployee/${id}`).then(
+          (res) => {
+            this.editResCust = res.data;
+          }
+      )
     }
   },
   data() {
@@ -191,7 +203,11 @@ export default {
       deleteRespCust: null,
       deleteRespClien: null,
       showDeleteCust: false,
-      showDeleteClien: false
+      showDeleteClien: false,
+      showEditCust: false,
+      showEditClien: false,
+      editResCust: null,
+      editResClien:null
     };
   }
 }

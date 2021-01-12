@@ -50,6 +50,21 @@ public class CustomerServiceEmployeeService {
          return "Customer Servise employee with ID :" + id + " successfully removed!";
     }
 
-
+    /**
+     * Update Customer service employee
+     * @param employee
+     * @return
+     */
+    public CustomerServiceEmployee updateCustomerServiceEmployee(CustomerServiceEmployee employee){
+        CustomerServiceEmployee existingEmployee = repository.findById(employee.getEmployeeId()).orElse(null);
+        existingEmployee.setFirstName(employee.getFirstName());
+        existingEmployee.setLastName(employee.getLastName());
+        existingEmployee.setSocialId(employee.getSocialId());
+        existingEmployee.setHotel(employee.getHotel());
+        existingEmployee.setEmail(employee.getEmail());
+        existingEmployee.setPhoneNumber(employee.getPhoneNumber());
+        existingEmployee.setUser(employee.getUser());
+        return repository.save(existingEmployee);
+    }
 
 }

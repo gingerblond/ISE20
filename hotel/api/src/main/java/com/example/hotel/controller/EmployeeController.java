@@ -28,7 +28,7 @@ public class EmployeeController {
     /**
      * Add Customer Service Employee
      * @param employee
-     * @return
+     * @return Obj: CustomerServiceEmployee
      */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("addCustomerEmployee")
@@ -38,7 +38,7 @@ public class EmployeeController {
 
     /**
      * Get customer Service Employees
-     * @return
+     * @return List<Obj: CustomerServiceEmployee>
      */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("getCustomerEmployees")
@@ -47,26 +47,38 @@ public class EmployeeController {
     }
 
     /**
-     * Get customer servise employee by ID
-     * @param id
-     * @return
-     */
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("getCustomerEmployees/{id}")
-    public Employee findgetCustomerEmployeesById(@PathVariable int id) {
-        return customerServiceEmployeeService.getCustomerServiceEmployeeById(id);
-    }
-
-    /**
      * Delete customer servise employee by ID
      * @param id
-     * @return
+     * @return String confirmation
      */
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("deleteCustomerEmployee/{id}")
     public String deleteCustomerEmployee(@PathVariable int id) {
         return customerServiceEmployeeService.deleteCustomerServiceEmployee(id);
     }
+
+    /**
+     * Get customer servise employee by ID
+     * @param id
+     * @return Obj: CustomerServiceEmployee
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("getCustomerEmployee/{id}")
+        public CustomerServiceEmployee getCustomerEmployeeById(@PathVariable int id){
+        return customerServiceEmployeeService.getCustomerServiceEmployeeById(id);
+    }
+
+    /**
+     * Update Customer Employee
+     * @param employee
+     * @return Obj: CustomerServiceEmployee
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("updateCustomerEmployee")
+    public CustomerServiceEmployee updateCustomerEmployee(@RequestBody CustomerServiceEmployee employee){
+        return customerServiceEmployeeService.updateCustomerServiceEmployee(employee);
+    }
+
 
     /*******************************************************************************
      *************** APIS for Cleaning Service Employees below:*********************
@@ -105,15 +117,5 @@ public class EmployeeController {
     }
 
 
-    /**
-    @PutMapping("updateEmployee")
-    public Employee updateCustomer(@RequestBody Employee employee) {
-        return service.updateEmployee(employee);
-    }
 
-
-    @DeleteMapping("deleteEmployeeById/{id}")
-    public String deleteCustomer(@PathVariable int id) {
-        return service.deleteEmployee(id);
-    }**/
 }
