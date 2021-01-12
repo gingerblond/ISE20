@@ -12,6 +12,7 @@ import ManageReservation from "./components/ManageReservation"
 import Login from "./components/Login"
 import RoomAdmin from "./components/RoomAdmin"
 import CustomerAdmin from "./components/CustomerAdmin"
+import EmployeeAdmin from "./components/EmployeeAdministration"
 
 
 
@@ -27,7 +28,10 @@ const routes = [
     { path: '/manageReservations', component: ManageReservation},
     { path: '/login', component: Login},
     { path: '/roomAdmin', component: RoomAdmin},
-    { path: '/customerAdmin', component: CustomerAdmin}
+    { path: '/customerAdmin', component: CustomerAdmin},
+    { path: '/employeeAdmin', component: EmployeeAdmin},
+
+
 
 ];
 
