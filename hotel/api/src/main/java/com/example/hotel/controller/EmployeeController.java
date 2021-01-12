@@ -1,12 +1,14 @@
 package com.example.hotel.controller;
 
 
+import com.example.hotel.dto.CleaningServiceEmployeeReport;
 import com.example.hotel.entity.CleaningServiceEmployee;
 import com.example.hotel.entity.CustomerServiceEmployee;
-import com.example.hotel.entity.Employee;
+import com.example.hotel.repository.CleaningServiceEmployeeRepository;
+import com.example.hotel.repository.CustomerServiceEmployeeRepository;
+import com.example.hotel.repository.HotelRepository;
 import com.example.hotel.service.CleaningServiceEmployeeService;
 import com.example.hotel.service.CustomerServiceEmployeeService;
-import com.example.hotel.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,15 @@ public class EmployeeController {
 
     @Autowired
     private CustomerServiceEmployeeService customerServiceEmployeeService;
+
+    @Autowired
+    private CustomerServiceEmployeeRepository customerServiceEmployeeRepository;
+
+    @Autowired
+    private HotelRepository hotelRepository;
+
+    @Autowired
+    private CleaningServiceEmployeeRepository cleaningServiceEmployeeRepository;
 
     /*******************************************************************************
      *************** APIS for Customer Service Employees below:*********************
@@ -138,6 +149,15 @@ public class EmployeeController {
         return cleaningEmployeeService.updateCustomerServiceEmployee(employee);
     }
 
+    /**
+     * Get all cleaning service employees of Hotel 5 who work 20 hours per week
+     * @return
+     */
+
+    @GetMapping("/CleaningServiceEmployees20Hours")
+    public List<CleaningServiceEmployeeReport> getReportClean(){
+        return cleaningServiceEmployeeRepository.getReportCleaningServiceEmployee();
+    }
 
 
 }
