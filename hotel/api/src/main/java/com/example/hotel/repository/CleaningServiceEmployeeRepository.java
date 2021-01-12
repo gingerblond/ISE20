@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CleaningServiceEmployeeRepository extends JpaRepository<CleaningServiceEmployee, Integer> {
 
-    @Query("SELECT new com.example.hotel.dto.CleaningServiceEmployeeReport(c.employeeId, c.firstName , c.lastName, c.workingHours, p.hotelId, p.address) FROM CleaningServiceEmployee c JOIN c.hotel p " +
+    @Query("SELECT new com.example.hotel.dto.CleaningServiceEmployeeReport(c.employeeId, c.firstName , c.lastName, c.workingHours, p.hotelId, p.address, c.responsibility, c.socialId) FROM CleaningServiceEmployee c JOIN c.hotel p " +
             "WHERE c.workingHours = 20")
     public List<CleaningServiceEmployeeReport> getReportCleaningServiceEmployee();
 }

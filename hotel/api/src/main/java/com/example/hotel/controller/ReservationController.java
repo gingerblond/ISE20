@@ -94,6 +94,7 @@ public class ReservationController {
      * Report about all reservation with full customer, reservation and room information
      * @return
      */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/getReservationReport")
     public List<ReservationReport> getJoinInformation(){
         return reservationRepository.getReportReservation();
@@ -103,6 +104,7 @@ public class ReservationController {
      * Get all booked SINGLE rooms more than 2 days
      * @return
      */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/getSingleRoomsBookedMoreThan2Days")
     public List<ReservationReport> getBookedRooms(){
         return reservationRepository.getRoomsBookedMoreThan2Days();

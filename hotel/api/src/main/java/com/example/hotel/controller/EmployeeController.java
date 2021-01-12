@@ -153,7 +153,7 @@ public class EmployeeController {
      * Get all cleaning service employees of Hotel 5 who work 20 hours per week
      * @return
      */
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/CleaningServiceEmployees20Hours")
     public List<CleaningServiceEmployeeReport> getReportClean(){
         return cleaningServiceEmployeeRepository.getReportCleaningServiceEmployee();

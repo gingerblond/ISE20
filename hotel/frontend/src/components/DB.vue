@@ -5,8 +5,17 @@
         style="max-width: 40rem;margin-top:20px;margin-left: 600px;"
         class="mb-2"
     >
-      <b-card-text>
-        In order to perform all calls ,you can feed our DB here:
+      <b-card-text style=" text-align: left">
+        In order to perform all calls ,you can feed our DB with:
+        <ul>
+          <li>100 Generated rooms</li>
+          <li>1 Hotel</li>
+          <li>30 cleaning service employees</li>
+          <li>20 customer service employees</li>
+          <li>20 customer service employees</li>
+          <li>1 Customer</li>
+          <li>5 Reservations</li>
+        </ul>
       </b-card-text>
       <b-button @click="dbFeed"> Feed Database</b-button>
       <b-alert variant="warning" show v-if="showSuccess" style="margin-top: 150px"><strong>{{

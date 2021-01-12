@@ -30,7 +30,7 @@
       <b-col v-on:click="$router.push('customerAdmin')"><b-button class="btn-info">Customer Administration</b-button></b-col>
       <div class="w-auto" style="margin-top: 10px"></div>
       <b-col style="margin-top: 10px" v-on:click="$router.push('employeeAdmin')"><b-button class="btn-info">Employee Administration</b-button></b-col>
-      <b-col style="margin-top: 10px" v-on:click="$router.push('db')"><b-button class="btn-info">Reports Administration</b-button></b-col>
+      <b-col style="margin-top: 10px" v-on:click="$router.push('reports')"><b-button class="btn-info">Reports Administration</b-button></b-col>
     </b-row>
     </b-card-body>
   </b-card>

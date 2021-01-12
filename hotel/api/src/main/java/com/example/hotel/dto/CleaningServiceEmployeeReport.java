@@ -20,4 +20,6 @@ public class CleaningServiceEmployeeReport {
     private int workingHours;
     private int hotelId;
     private String address;
+    private String responsibility;
+    private String socialId;
 }

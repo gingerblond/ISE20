@@ -48,7 +48,7 @@
         </b-row>
       </b-container>
     </b-card>
-    <b-button v-on:click="$router.push('reservation')">  Make reservation</b-button>
+    <b-button class="btn btn-info" v-on:click="$router.push('reservation')">  Make reservation</b-button>
   </b-container>
 </template>
 

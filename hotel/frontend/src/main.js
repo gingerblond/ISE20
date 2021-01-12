@@ -13,6 +13,8 @@ import Login from "./components/Login"
 import RoomAdmin from "./components/RoomAdmin"
 import CustomerAdmin from "./components/CustomerAdmin"
 import EmployeeAdmin from "./components/EmployeeAdministration"
+import Reports from "./components/Reports"
+
 
 
 
@@ -30,6 +32,8 @@ const routes = [
     { path: '/roomAdmin', component: RoomAdmin},
     { path: '/customerAdmin', component: CustomerAdmin},
     { path: '/employeeAdmin', component: EmployeeAdmin},
+    { path: '/reports', component: Reports},
+
 
 
 
