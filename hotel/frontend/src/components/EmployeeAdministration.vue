@@ -27,7 +27,7 @@
           </tr>
           <tr v-for="employee in employeesCust" :key="employee.employeeId">
             <td> {{ employee.employeeId}}</td>
-            <td> {{ employee.firstName }}{{ employee.lastName }}</td>
+            <td> {{ employee.firstName }} {{ employee.lastName }}</td>
             <td> {{ employee.socialId}}</td>
             <td> {{ employee.hotel.address }}</td>
             <td> {{ employee.phoneNumber}}</td>
@@ -54,14 +54,14 @@
           </tr>
           <tr v-for="employee in employeesCLien" :key="employee.employeeId">
             <td> {{ employee.employeeId}}</td>
-            <td> {{ employee.firstName }}{{ employee.lastName }}</td>
+            <td> {{ employee.firstName }} {{ employee.lastName }}</td>
             <td> {{ employee.socialId}}</td>
             <td> {{ employee.hotel.address }}</td>
             <td> {{ employee.workingHours}}</td>
             <td> {{ employee.responsibility}}</td>
             <td>
               <button class="btn-outline-info" v-on:click="deleteClieningEmployee(employee.employeeId)">Delete</button>
-              <button class="btn-outline-info" v-on:click="editRoom(room.roomID)">Edit</button>
+              <button class="btn-outline-info" v-on:click="editCleaningEmployee(employee.employeeId)">Edit</button>
             </td>
           </tr>
         </table>
@@ -77,6 +77,7 @@
         <b-alert variant="success" show v-if="showDeleteCust" style="margin-top: 120px"> <strong>{{deleteRespCust}}</strong>
         </b-alert>
         <edit-customer-employee :parent-data="$data.editResCust" style="margin-left: 20px" v-if="showEditCust"></edit-customer-employee>
+        <edit-cleaning-employee :parent-data="$data.editResClien" style="margin-left: 20px" v-if="showEditClien"></edit-cleaning-employee>
       </div>
 
 
@@ -90,9 +91,10 @@ import axios from "axios";
 import CustomerServiceEmployee from "./CustomerServiceEmployee";
 import CleaningServiceEmployee from "./CleaningServiceEmployee";
 import EditCustomerEmployee from "./EditCustomerEmployee";
+import EditCleaningEmployee from "./EditCleaningEmployee";
 export default {
   name: "EmployeeAdministration",
-  components: {EditCustomerEmployee, CleaningServiceEmployee, CustomerServiceEmployee},
+  components: {EditCleaningEmployee, EditCustomerEmployee, CleaningServiceEmployee, CustomerServiceEmployee},
   methods: {
     addCustomerServiceEmployee(){
       this.newCust = true;
@@ -101,7 +103,8 @@ export default {
       this.showDeleteCust = false;
       this.showTableClien= false;
       this.showDeleteClien= false;
-      this.showDeleteCust= false;
+      this.showEditClien=false;
+      this.showEditCust=false;
     },
     addCleaningServiceEmployee(){
       this.newClean = true;
@@ -110,14 +113,17 @@ export default {
       this.showTableClien= false;
       this.showDeleteCust = false;
       this.showDeleteClien= false;
-      this.showDeleteCust= false;
-    },
+      this.showEditClien=false;
+      this.showEditCust=false;
+      },
     getCustomerServiceEmployees(){
       this.showTableCust= true;
       this.showTableClien= false;
       this.newClean = false;
       this.newCust = false;
       this.showDeleteCust = false;
+      this.showEditClien=false;
+      this.showEditCust=false;
 
       axios.get("http://localhost:8000/getCustomerEmployees").then(
           (res)=> {
@@ -131,6 +137,8 @@ export default {
       this.newClean = false;
       this.newCust = false;
       this.showDeleteCust = false;
+      this.showEditClien=false;
+      this.showEditCust=false;
 
       axios.get("http://localhost:8000/getCleaningEmployees").then(
           (res)=> {
@@ -159,6 +167,14 @@ export default {
       axios.get(`http://localhost:8000/getCustomerEmployee/${id}`).then(
           (res) => {
             this.editResCust = res.data;
+          }
+      )
+    },
+    editCleaningEmployee(id){
+      this.showEditClien = true;
+      axios.get(`http://localhost:8000/getCleaningEmployee/${id}`).then(
+          (res) => {
+            this.editResClien = res.data;
           }
       )
     }

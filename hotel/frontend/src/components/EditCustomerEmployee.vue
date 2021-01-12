@@ -1,6 +1,6 @@
 <template>
   <b-form  v-on:submit.prevent="submitForm">
-    <h2> Edit customer service employee mit ID {{parentData.employeeId}}:</h2>
+    <h2> Edit customer service employee with ID {{parentData.employeeId}}:</h2>
 
     <div class="form-group" >
       <label for="firstName">Employee First Name:</label>
@@ -65,6 +65,7 @@ export default {
       )
     }
   },
+
   data() {
     return {
       form:{

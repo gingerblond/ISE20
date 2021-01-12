@@ -50,5 +50,19 @@ public class CleaningServiceEmployeeService {
         return "Cleaning Servise employee with ID :" + id + " successfully removed!";
     }
 
-
+    /**
+     * Update Cleaning service employee
+     * @param employee
+     * @return
+     */
+    public CleaningServiceEmployee updateCustomerServiceEmployee(CleaningServiceEmployee employee){
+        CleaningServiceEmployee existingEmployee = repository.findById(employee.getEmployeeId()).orElse(null);
+        existingEmployee.setFirstName(employee.getFirstName());
+        existingEmployee.setLastName(employee.getLastName());
+        existingEmployee.setSocialId(employee.getSocialId());
+        existingEmployee.setHotel(employee.getHotel());
+        existingEmployee.setWorkingHours(employee.getWorkingHours());
+        existingEmployee.setResponsibility(employee.getResponsibility());
+        return repository.save(existingEmployee);
+    }
 }

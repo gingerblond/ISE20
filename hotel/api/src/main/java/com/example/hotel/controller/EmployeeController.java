@@ -116,6 +116,28 @@ public class EmployeeController {
         return cleaningEmployeeService.deleteCleaningServiceEmployee(id);
     }
 
+    /**
+     * Get cleaning servise employee by ID
+     * @param id
+     * @return Obj: CleaningServiceEmployee
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("getCleaningEmployee/{id}")
+    public CleaningServiceEmployee getCleaningEmployeeById(@PathVariable int id){
+        return cleaningEmployeeService.getCleaningServiceEmployeeById(id);
+    }
+
+    /**
+     * Update CleaningServiceEmployee
+     * @param employee
+     * @return Obj: CleaningServiceEmployee
+     */
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("updateCleaningEmployee")
+    public CleaningServiceEmployee updateCustomerEmployee(@RequestBody CleaningServiceEmployee employee){
+        return cleaningEmployeeService.updateCustomerServiceEmployee(employee);
+    }
+
 
 
 }
