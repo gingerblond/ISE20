@@ -90,11 +90,22 @@ public class ReservationController {
         return service.updateReservation(reservation);
     }
 
+    /**
+     * Report about all reservation with full customer, reservation and room information
+     * @return
+     */
     @GetMapping("/getReservationReport")
     public List<ReservationReport> getJoinInformation(){
         return reservationRepository.getReportReservation();
     }
 
-
+    /**
+     * Get all booked SINGLE rooms more than 2 days
+     * @return
+     */
+    @GetMapping("/getSingleRoomsBookedMoreThan2Days")
+    public List<ReservationReport> getBookedRooms(){
+        return reservationRepository.getRoomsBookedMoreThan2Days();
+    }
 
 }
