@@ -13,7 +13,7 @@
           <tr>
             <td> How many of the cleaning service
               employees of Hotel 5 ,
-              are working more than 20h/week
+              are working exactly 20h/week
             </td>
             <td>
               <ul>
@@ -70,7 +70,7 @@
         </table>
       </div>
       <div class="col-md-6 col-lg-6 ">
-        <h2 v-if="showCleanTable"> cleaning service employees of Hotel 5, working more than 20h/week</h2>
+        <h2 v-if="showCleanTable"> cleaning service employees of Hotel 5, working exactly 20h/week</h2>
         <table v-if="cleaningEmployees.length>0 && showCleanTable" style="margin-top: 5px;">
           <tr>
             <th> ID</th>
