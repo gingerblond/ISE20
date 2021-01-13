@@ -8,7 +8,7 @@ FROM java:8-jdk-alpine
 #FROM adoptopenjdk/openjdk11:ubi
 
 #here you set the location of your jar file when you build it.
-COPY ./api.jar /usr/app/
+ADD api.jar /usr/app/
 
 WORKDIR /usr/app
 
