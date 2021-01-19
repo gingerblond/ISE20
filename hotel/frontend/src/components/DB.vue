@@ -23,6 +23,11 @@
         }}</strong>
       </b-alert>
     </b-card>
+    <b-button @click="migrateToMongo()"> Migrate To Mongo</b-button>
+    <b-alert variant="warning" show v-if="migrationSuccess" style="margin-top: 150px"><strong>{{
+        this.migrationPayload
+      }}</strong>
+    </b-alert>
   </div>
 </template>
 
@@ -40,11 +45,21 @@ export default {
           }
       );
     },
+    migrateToMongo() {
+      axios.post('http://localhost:8000/migration').then(
+          (res) => {
+            this.migrationSuccess = true
+            this.migrationPayload = res.data
+          }
+      );
+    }
   },
   data() {
     return {
       payload: null,
       showSuccess: false,
+      migrationPayload: null,
+      migrationSuccess: false
     }
   }
 }
