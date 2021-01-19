@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoomMo {
 
-    private int roomID;
     private boolean available;
     private String type;
+
 }
