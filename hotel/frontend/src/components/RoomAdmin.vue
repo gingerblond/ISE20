@@ -15,7 +15,7 @@
             <th> Is available?</th>
             <th> Manage Rooms</th>
           </tr>
-          <tr v-for="room in roomsList" :key="room.type">
+          <tr v-for="room in roomsList" :key="room.roomID">
             <td> {{ room.roomID }}</td>
             <td> {{ room.type }}</td>
             <td> {{ room.available }}</td>

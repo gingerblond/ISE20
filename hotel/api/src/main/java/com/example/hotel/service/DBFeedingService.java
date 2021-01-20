@@ -52,7 +52,7 @@ public class DBFeedingService {
      * Create 100 random Rooms
      */
     public void createRooms(){
-        for(int i=1; i<=100; i++){
+        for(int i=0; i<=99; i++){
             roomsDB.add( new Room(i,true, roomTypes[new Random().nextInt(roomTypes.length)]));
         }
     }
@@ -66,7 +66,7 @@ public class DBFeedingService {
      * Create 30 random cleaning service employees
      */
     public void createCleaningServiseEmployees(){
-        for(int i=1; i<=30; i++){
+        for(int i=0; i<=29; i++){
             cleaningEmployeesDB.add( new CleaningServiceEmployee(i,names[new Random().nextInt(names.length)],names[new Random().nextInt(names.length)],
                     getRandomNumber(), hotel,workingHours[new Random().nextInt(workingHours.length)],
                     responsibility[new Random().nextInt(responsibility.length)]));
@@ -81,7 +81,7 @@ public class DBFeedingService {
      * Create 20 random customer service employees
      */
     public void createCustomerServiseEmployees(){
-        for(int i=1; i<=20; i++){
+        for(int i=0; i<=19; i++){
             customerServiceEmployeesDB.add( new CustomerServiceEmployee(i,names[new Random().nextInt(names.length)],names[new Random().nextInt(names.length)],
                     getRandomNumber(), hotel,"+43"+getRandomNumber(),
                     emails[new Random().nextInt(emails.length)],user));
@@ -97,7 +97,7 @@ public class DBFeedingService {
      * create 5 reservations with 5 new customers
      */
     public void createReservations(){
-        for (int i=1; i<=5;i++){
+        for (int i=0; i<=4;i++){
             reservationsDB.add(new Reservation(i,price[new Random().nextInt(price.length)],dates[new Random().nextInt(dates.length)],
                     i, customers.get(0),roomsDB.get(i)));
         }

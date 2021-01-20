@@ -15,7 +15,7 @@ public class CustomerMo {
     @Transient
     public static final String SEQUENCE_NAME = "customers_sequence";
     @Id
-    private int customerId;
+    private int id;
     private String firstName;
     private String lastName;
     private String idCard;
