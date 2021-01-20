@@ -2,10 +2,8 @@ package com.example.hotel.service;
 
 import com.example.hotel.entity.*;
 import com.example.hotel.model.*;
-import com.example.hotel.repositoryMo.CleaningServiceEmplMoRepository;
-import com.example.hotel.repositoryMo.CustomerMoRepository;
-import com.example.hotel.repositoryMo.HotelMoRepository;
-import com.example.hotel.repositoryMo.ReservationMoRepository;
+import com.example.hotel.repository.UserRepository;
+import com.example.hotel.repositoryMo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +21,11 @@ public class MigrationService {
     private ReservationMoRepository reservationMoRepository;
     @Autowired
     private CleaningServiceEmplMoRepository cleaningServiceEmplMoRepository;
+    @Autowired
+    private UserMoRepository userMoRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired CustomerServiceEmplMoRepository customerServiceEmplMoRepository;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
@@ -34,6 +37,8 @@ public class MigrationService {
     private ReservationService reservationService;
     @Autowired
     private CleaningServiceEmployeeService cleaningServiceEmployeeService;
+    @Autowired
+    private CustomerServiceEmployeeService customerServiceEmployeeService;
 
     /**
      * Start migration script
@@ -44,6 +49,8 @@ public class MigrationService {
         addCustomersToMongo();
         addReservationsToMongo();
         addCleaningServiceEmplToMongo();
+        addUserToMongo();
+        addCustomerServiceEmplToMongo();
     }
 
     /**
@@ -96,6 +103,20 @@ public class MigrationService {
     }
 
     /**
+     * Mograte User to MongoDB
+     */
+    private void addUserToMongo(){
+        List<User> users = userRepository.findAll();
+        List<UserMo> usersMo = new ArrayList<>();
+        for(User user: users){
+            usersMo.add(new UserMo(sequenceGeneratorService.getSequenceNumber(UserMo.SEQUENCE_NAME),user.getUsername(),user.getPassword(),user.isLoggedIn()));
+        }
+        for(UserMo userMo: usersMo){
+            userMoRepository.save(userMo);
+        }
+    }
+
+    /**
      * Get room by Id by reservation
      * @param id
      * @return
@@ -121,7 +142,22 @@ public class MigrationService {
         }
 
     }
-
+    /**
+     * Add customer service employees to Mongo
+     */
+    private void  addCustomerServiceEmplToMongo() {
+        List<CustomerServiceEmployee> customerServiceEmployees = customerServiceEmployeeService.getCustomerServiceEmployees();
+        List<CustomerServiceEmplMo> customerServiceEmplsMo = new ArrayList<>();
+        for (CustomerServiceEmployee employee : customerServiceEmployees) {
+            HotelMo hotelMo= getHotelMo(employee.getHotel().getHotelId());
+            UserMo userMo = userMoRepository.findAll().get(0);
+            customerServiceEmplsMo.add(new CustomerServiceEmplMo(sequenceGeneratorService.getSequenceNumber(CustomerServiceEmplMo.SEQUENCE_NAME),employee.getFirstName(),
+                    employee.getLastName(),employee.getSocialId(),hotelMo,employee.getPhoneNumber(),employee.getEmail(),userMo));
+        }
+        for(CustomerServiceEmplMo employee: customerServiceEmplsMo){
+            customerServiceEmplMoRepository.save(employee);
+        }
+    }
     /**
      * Get Hotel by Id
      * @param id
@@ -136,4 +172,5 @@ public class MigrationService {
             return null;
         }
     }
+
 }
