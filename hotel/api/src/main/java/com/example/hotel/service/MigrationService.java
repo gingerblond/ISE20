@@ -1,13 +1,8 @@
 package com.example.hotel.service;
 
-import com.example.hotel.entity.Customer;
-import com.example.hotel.entity.Hotel;
-import com.example.hotel.entity.Reservation;
-import com.example.hotel.entity.Room;
-import com.example.hotel.model.CustomerMo;
-import com.example.hotel.model.HotelMo;
-import com.example.hotel.model.ReservationMo;
-import com.example.hotel.model.RoomMo;
+import com.example.hotel.entity.*;
+import com.example.hotel.model.*;
+import com.example.hotel.repositoryMo.CleaningServiceEmplMoRepository;
 import com.example.hotel.repositoryMo.CustomerMoRepository;
 import com.example.hotel.repositoryMo.HotelMoRepository;
 import com.example.hotel.repositoryMo.ReservationMoRepository;
@@ -16,16 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MigrationService {
     @Autowired
     private HotelMoRepository hotelMoRepository;
-
     @Autowired
     private CustomerMoRepository customerMoRepository;
     @Autowired
     private ReservationMoRepository reservationMoRepository;
+    @Autowired
+    private CleaningServiceEmplMoRepository cleaningServiceEmplMoRepository;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
@@ -35,7 +32,8 @@ public class MigrationService {
     private CustomerService customerService;
     @Autowired
     private ReservationService reservationService;
-
+    @Autowired
+    private CleaningServiceEmployeeService cleaningServiceEmployeeService;
 
     /**
      * Start migration script
@@ -45,6 +43,7 @@ public class MigrationService {
         addHotelsToMongo();
         addCustomersToMongo();
         addReservationsToMongo();
+        addCleaningServiceEmplToMongo();
     }
 
     /**
@@ -80,6 +79,9 @@ public class MigrationService {
        }
     }
 
+    /**
+     * Migrate reservations to MongoDB
+     */
     private  void addReservationsToMongo(){
         List<Reservation> reservations = reservationService.getReservations();
         List<ReservationMo> reservationsMo = new ArrayList<>();
@@ -93,8 +95,45 @@ public class MigrationService {
         }
     }
 
+    /**
+     * Get room by Id by reservation
+     * @param id
+     * @return
+     */
     private RoomMo getRoomMoById(int id){
         List<RoomMo> roomsMo = hotelMoRepository.findAll().get(0).getRoomsMo();
         return roomsMo.get(id);
+    }
+
+    /**
+     * Add cleaning service employees to Mongo
+     */
+    private void addCleaningServiceEmplToMongo(){
+        List<CleaningServiceEmployee> cleaningServiceEmployees = cleaningServiceEmployeeService.getCleaningServiceEmployees();
+        List<CleaningServiceEmplMo> cleaningServiceEmplsMo = new ArrayList<>();
+        for(CleaningServiceEmployee employee: cleaningServiceEmployees){
+            HotelMo hotelMo= getHotelMo(employee.getHotel().getHotelId());
+            cleaningServiceEmplsMo.add(new CleaningServiceEmplMo(sequenceGeneratorService.getSequenceNumber(CleaningServiceEmplMo.SEQUENCE_NAME),employee.getFirstName(),
+                    employee.getLastName(),employee.getSocialId(),hotelMo,employee.getWorkingHours(),employee.getResponsibility()));
+        }
+        for (CleaningServiceEmplMo employee: cleaningServiceEmplsMo) {
+            cleaningServiceEmplMoRepository.save(employee);
+        }
+
+    }
+
+    /**
+     * Get Hotel by Id
+     * @param id
+     * @return
+     */
+    private HotelMo getHotelMo(int id){
+        Optional<HotelMo> hotelMoOptional = hotelMoRepository.findById(id);
+        if (hotelMoOptional.isPresent()) {
+            return (hotelMoOptional.get());
+        }
+        else {
+            return null;
+        }
     }
 }
